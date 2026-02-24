@@ -1,9 +1,21 @@
 import express from "express";
+import bodyParser from "body-parser";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 const port = 3000;
 
-app.use(express.static("public"));
+// Recreate __dirname for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// ... your app = express() setup ...
+
+// Use the absolute paths
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "public")));
 
 /* Write your code here:
 Step 1: Render the home page "/" index.ejs
